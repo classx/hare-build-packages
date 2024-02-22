@@ -1,0 +1,12 @@
+[submodule "hare"]
+	path = hare
+	url = https://git.sr.ht/~sircmpwn/hare
+[submodule "harec"]
+	path = harec
+	url = https://git.sr.ht/~sircmpwn/harec
+[submodule "qbe"]
+	path = qbe
+	url = git://c9x.me/qbe.git
+[submodule "scdoc"]
+	path = scdoc
+	url = https://git.sr.ht/~sircmpwn/scdoc
