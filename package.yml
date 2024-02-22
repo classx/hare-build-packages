@@ -1,0 +1,56 @@
+---
+name: "hare"
+arch: "amd64"
+platform: "linux"
+version: "0.24"
+release: "1"
+section: "misc"
+priority: "optional"
+maintainer: "Alexey <classx@gmail.com>"
+description: |
+  Hare compiler
+vendor: "Alexey"
+homepage: "http://alexey.company"
+license: MIT
+disable_globbing: false
+contents:
+  - src: /usr/local/bin/hare
+    dst: /usr/local/bin/hare
+  - src: /usr/local/bin/harec
+    dst: /usr/local/bin/harec
+  - src: /usr/local/bin/haredoc
+    dst: /usr/local/bin/haredoc
+  - src: /usr/local/bin/scdoc
+    dst: /usr/local/bin/scdoc
+  - src: /usr/local/bin/qbe
+    dst: /usr/local/bin/qbe
+  - src: /usr/local/share/man/man1/scdoc.1
+    dst: /usr/local/share/man/man1/scdoc.1
+  - src: /usr/local/share/man/man5/scdoc.5
+    dst: /usr/local/share/man/man5/scdoc.5
+  - src: /usr/local/share/pkgconfig/scdoc.pc
+    dst: /usr/local/share/pkgconfig/scdoc.pc
+  - src: /usr/local/share/man/man1/hare.1
+    dst: /usr/local/share/man/man1/hare.1
+  - src: /usr/local/share/man/man1/hare-build.1
+    dst: /usr/local/share/man/man1/hare-build.1
+  - src: /usr/local/share/man/man1/hare-cache.1
+    dst: /usr/local/share/man/man1/hare-cache.1
+  - src: /usr/local/share/man/man1/hare-deps.1
+    dst: /usr/local/share/man/man1/hare-deps.1
+  - src: /usr/local/share/man/man1/haredoc.1
+    dst: /usr/local/share/man/man1/haredoc.1
+  - src: /usr/local/share/man/man1/hare-run.1
+    dst: /usr/local/share/man/man1/hare-run.1
+  - src: /usr/local/share/man/man1/hare-test.1
+    dst: /usr/local/share/man/man1/hare-test.1
+  - src: /usr/local/share/man/man5/haredoc.5
+    dst: /usr/local/share/man/man5/haredoc.5
+  - src: /usr/local/share/man/man5/hare-module.5
+    dst: /usr/local/share/man/man5/hare-module.5
+  - src: /usr/local/src/hare/stdlib
+    dst: /usr/local/src/hare/stdlib
+
+deb:
+  compression: xz
+
