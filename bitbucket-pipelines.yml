@@ -11,11 +11,12 @@ pipelines:
           - ls -l output/
         services:
           - docker
+        artifacts:
+          - output/**
           
     - step:
         name: 'Archive'
-        trigger: manual
+        # trigger: manual
         script:
-          - echo "Deploying to test environment"
-          - ls -l 
+          - echo "Notify here"
 
