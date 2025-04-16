@@ -8,11 +8,12 @@ pipelines:
           - echo "Your deployment to staging script goes here..."
           - git submodule update --init --recursive
           - make archive
+          - ls -l
         services:
           - docker
     - step:
         name: 'Archive'
-        # trigger: manual  # Uncomment to make this a manual deployment.
+        trigger: manual
         script:
           - echo "Deploying to test environment"
-          - ls -l output/
+          - ls -l 
