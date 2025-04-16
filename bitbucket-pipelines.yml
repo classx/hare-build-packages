@@ -11,4 +11,11 @@ pipelines:
           - ls -l output/
         services:
           - docker
+          
+    - step:
+        name: 'Archive'
+        trigger: manual
+        script:
+          - echo "Deploying to test environment"
+          - ls -l 
 
