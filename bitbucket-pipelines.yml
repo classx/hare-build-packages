@@ -1,0 +1,14 @@
+image: atlassian/default-image:3
+
+pipelines:
+  default:
+    - step:
+        name: 'Deployment to Staging'
+        deployment: staging
+        script:
+          - echo "Your deployment to staging script goes here..."
+          - git submodule update --init --recursive
+          - make archive
+        services:
+          - docker
+
