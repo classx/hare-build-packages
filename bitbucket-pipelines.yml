@@ -4,7 +4,6 @@ pipelines:
   default:
     - step:
         name: 'Build'
-        deployment: Production
         script:
           - echo "Your deployment to staging script goes here..."
           - git submodule update --init --recursive
@@ -13,7 +12,6 @@ pipelines:
           - docker
     - step:
         name: 'Archive'
-        deployment: Production
         # trigger: manual  # Uncomment to make this a manual deployment.
         script:
           - echo "Deploying to test environment"
