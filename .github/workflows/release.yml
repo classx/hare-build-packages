@@ -1,0 +1,53 @@
+name: release
+on:
+  push:
+    tags:
+      - 'v*'
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: prepaire
+      run: mkdir -p dist
+    - name: build deb
+      run: make archive
+    - name: save deb
+      run: cp output/*.deb dist/
+    - name: build rpm
+      run: make archive PACKAGE_TYPE=rpm
+    - name: save rpm
+      run: cp output/*.rpm dist/
+    - name: version
+      run: echo "::set-output name=version::$(cat .version)"
+      id: version
+    - name: release
+      uses: actions/create-release@v1
+      id: create_release
+      with:
+        draft: false
+        prerelease: false
+        release_name: ${{ steps.version.outputs.version }}
+        tag_name: ${{ github.ref }}
+        body: |
+          The headline features of Hare 0.24.2 are
+          - NetBSD support
+          - for-each loops
+          - Optional function parameters
+          - Improved performance for bufio and related APIs
+          - Revised and improved APIs for unix
+          - Multiple alternation support for regex
+          - Support for shared memory and memfds on supported platforms
+          - New cryptography APIs
+      env:
+        GITHUB_TOKEN: ${{ github.token }}
+    - name: 'Upload RPM Artifacts'
+      uses: actions/upload-artifact@v4
+      with:
+        name: hare-${{ steps.version.outputs.version }}.x86_64.rpm
+        path: dist/hare-${{ steps.version.outputs.version }}.x86_64.rpm
+    - name: 'Upload DEB Artifacts'
+      uses: actions/upload-artifact@v4
+      with:
+        name: hare_${{ steps.version.outputs.version }}_amd64.deb
+        path: dist/hare_${{ steps.version.outputs.version }}_amd64.deb
