@@ -1,22 +1,17 @@
 image: atlassian/default-image:3
 
 pipelines:
-  default:
-    - step:
-        name: 'Build'
-        script:
-          - echo "Your deployment to staging script goes here..."
-          - git submodule update --init --recursive
-          - make archive
-          - ls -l output/
-        services:
-          - docker
-        artifacts:
-          - output/**
-          
-    - step:
-        name: 'Archive'
-        # trigger: manual
-        script:
-          - echo "Notify here"
-
+  custom:
+    packages:
+      - step:
+          script:
+            - git submodule update --init --recursive
+            - make archive
+            - mkdir -p dist/
+            - cp output/*.deb dist/
+            - make archive PACKAGE_TYPE=rpm
+            - cp output/*.rpm dist/
+          services:
+            - docker
+          artifacts:
+            - dist/**
