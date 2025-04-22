@@ -22,7 +22,7 @@ jobs:
       run: echo "::set-output name=version::$(cat .version)"
       id: version
     - name: release
-      uses: actions/create-release@v1
+      uses: actions/create-release@latest
       id: create_release
       with:
         draft: false
@@ -40,7 +40,7 @@ jobs:
           - Support for shared memory and memfds on supported platforms
           - New cryptography APIs
       env:
-        GITHUB_TOKEN: ${{ github.token }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     - name: 'Upload RPM Artifacts'
       uses: actions/upload-artifact@v4
       with:
