@@ -3,6 +3,7 @@ SHELL=/bin/bash
 VERBOSE ?= FALSE
 WORK_DIR ?= $(CURDIR)
 OUTPUT_DIR ?= $(WORK_DIR)/output
+PACKAGE_TYPE ?= deb
 
 # Hide or not the calls depending of VERBOSE
 ifeq ($(VERBOSE),TRUE)
@@ -27,7 +28,7 @@ init: clean
 	$(HIDE)cp -f hare/configs/linux.mk hare/config.mk
 
 build: init
-	$(HIDE)docker build -t hare:builder -f Dockerfile .
+	$(HIDE)docker build -t hare:builder -f Dockerfile.$(PACKAGE_TYPE) .
 
 archive: build
 	$(HIDE)docker run --rm -v $(OUTPUT_DIR):/output hare:builder /bin/bash -c "cp -r /src/* /output"
