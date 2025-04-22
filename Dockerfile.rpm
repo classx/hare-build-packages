@@ -4,7 +4,7 @@ ADD harec /src/harec
 ADD qbe /src/qbe
 ADD scdoc /src/scdoc
 
-RUN yum install -y make gcc
+RUN yum install -y make gcc libgcc && dnf --enablerepo=crb install libstdc++-static -y && dnf --enablerepo=crb install glibc-static -y
 RUN cd /src/qbe && make && make install
 RUN cd /src/harec && make && make install
 RUN cd /src/scdoc && make && make install
