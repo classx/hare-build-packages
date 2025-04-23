@@ -19,7 +19,7 @@ jobs:
     - name: save rpm
       run: cp output/*.rpm dist/
     - name: version
-      run: echo "::set-output name=version::$(cat .version)"
+      run: echo "version=$(cat .version)" >> $GITHUB_ENV
       id: version
     - name: release
       uses: actions/create-release@latest
