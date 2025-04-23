@@ -19,15 +19,16 @@ jobs:
     - name: save rpm
       run: cp output/*.rpm dist/
     - name: version
-      run: echo "version=$(cat .version)" >> $GITHUB_ENV
-      id: version
+      run: |
+        version=$(cat .version)
+        echo "version=$version" >> $GITHUB_ENV
     - name: release
       uses: actions/create-release@latest
       id: create_release
       with:
         draft: false
         prerelease: false
-        release_name: ${{ steps.version.outputs.version }}
+        release_name: ${{ env.version }}
         tag_name: ${{ github.ref }}
         body: |
           The headline features of Hare 0.24.2 are
@@ -44,10 +45,10 @@ jobs:
     - name: 'Upload RPM Artifacts'
       uses: actions/upload-artifact@v4
       with:
-        name: hare-${{ steps.version.outputs.version }}.x86_64.rpm
-        path: dist/hare-${{ steps.version.outputs.version }}.x86_64.rpm
+        name: hare-${{ env.version }}.x86_64.rpm
+        path: dist/hare-${{ env.version }}.x86_64.rpm
     - name: 'Upload DEB Artifacts'
       uses: actions/upload-artifact@v4
       with:
-        name: hare_${{ steps.version.outputs.version }}_amd64.deb
-        path: dist/hare_${{ steps.version.outputs.version }}_amd64.deb
+        name: hare_${{ env.version }}_amd64.deb
+        path: dist/hare_${{ env.version }}_amd64.deb
