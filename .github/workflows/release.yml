@@ -30,25 +30,24 @@ jobs:
         prerelease: false
         release_name: ${{ env.version }}
         tag_name: ${{ github.ref }}
-        body: |
-          The headline features of Hare 0.24.2 are
-          - NetBSD support
-          - for-each loops
-          - Optional function parameters
-          - Improved performance for bufio and related APIs
-          - Revised and improved APIs for unix
-          - Multiple alternation support for regex
-          - Support for shared memory and memfds on supported platforms
-          - New cryptography APIs
+        body_path: CHANGELOG.md
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    - name: 'Upload RPM Artifacts'
-      uses: actions/upload-artifact@v4
+    - name: upload deb
+      uses: actions/upload-release-asset@v1
       with:
-        name: hare-${{ env.version }}.x86_64.rpm
-        path: dist/hare-${{ env.version }}.x86_64.rpm
-    - name: 'Upload DEB Artifacts'
-      uses: actions/upload-artifact@v4
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: dist/hare_${{ env.version }}_amd64.deb
+        asset_name: hare_${{ env.version }}_amd64.deb
+        asset_content_type: application/x-debian-package
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: upload rpm
+      uses: actions/upload-release-asset@v1
       with:
-        name: hare_${{ env.version }}_amd64.deb
-        path: dist/hare_${{ env.version }}_amd64.deb
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: dist/hare-${{ env.version }}.x86_64.rpm
+        asset_name: hare-${{ env.version }}.x86_64.rpm
+        asset_content_type: application/x-rpm
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
